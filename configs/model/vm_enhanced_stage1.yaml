@@ -1,0 +1,24 @@
+# 阶段一配置：基础增强 (目标75+分)
+__target__: EnhancedVelocityModule
+
+# 几何参数
+frame_knn: 24  # 增加KNN邻居数
+num_train_points: 256  # 增加训练采样点
+
+# 特征提取增强
+feat_embedding_dim: 512  # 增加特征维度
+use_normals: true  # 启用法向估计
+use_curvature: true  # 启用曲率加权
+use_transformer: false  # 暂不启用Transformer（速度考虑）
+
+# 解码器
+decoder_hidden_dim: 128
+
+# 损失函数
+loss_type: "supervised"  # 基础监督损失
+dsm_sigma: 0.01
+use_adaptive_noise: false  # 暂不启用自适应噪声
+
+# 推理
+num_inference_steps: 4
+use_iterative_refinement: false

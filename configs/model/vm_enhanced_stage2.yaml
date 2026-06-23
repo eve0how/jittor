@@ -1,0 +1,24 @@
+# 阶段二配置：深度学习架构升级 (目标85+分)
+__target__: EnhancedVelocityModule
+
+# 几何参数
+frame_knn: 32
+num_train_points: 256
+
+# 特征提取增强
+feat_embedding_dim: 512
+use_normals: true
+use_curvature: true
+use_transformer: true  # 启用Transformer注意力
+
+# 解码器
+decoder_hidden_dim: 128
+
+# 损失函数
+loss_type: "hybrid"  # 混合损失：监督 + 一致性
+dsm_sigma: 0.005  # 降低方差
+use_adaptive_noise: true  # 启用自适应噪声
+
+# 推理
+num_inference_steps: 6
+use_iterative_refinement: true  # 启用迭代细化

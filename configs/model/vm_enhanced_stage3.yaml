@@ -1,0 +1,16 @@
+# 阶段三配置：前沿技术融合 (目标90+分)
+__target__: DiffusionDenoiser
+
+# 特征提取
+frame_knn: 32
+feat_embedding_dim: 512
+
+# 扩散模型参数
+num_diffusion_steps: 100  # 更多扩散步数
+noise_schedule: "quadratic"  # 二次噪声时间表
+
+# 解码器
+decoder_hidden_dim: 128
+
+# 推理
+num_inference_steps: 50  # 长反向链

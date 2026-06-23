@@ -1,0 +1,62 @@
+# 阶段一训练任务配置
+mode: train
+
+# 数据配置
+data:
+  train:
+    datapath:
+      root: dataset_clean
+      synset_dict:
+        02691156: [64, 1]  # 飞机
+        02773838: [32, 1]  # 包
+        02828884: [16, 1]  # 浴缸
+        02933112: [8, 1]   # 橱柜
+        02958343: [8, 1]   # 汽车
+        03001627: [128, 1] # 椅子
+        03636649: [8, 1]   # 灯
+        03691459: [8, 1]   # 扬声器
+        04256520: [8, 1]   # 沙发
+        04379243: [8, 1]   # 桌子
+    shuffle: true
+    batch_size: 8
+    num_workers: 4
+  
+  validate:
+    datapath:
+      root: dataset_clean
+      synset_dict:
+        02691156: [8, 1]
+        03001627: [16, 1]
+    shuffle: false
+    batch_size: 4
+    num_workers: 2
+
+# 数据处理
+transform:
+  point_cloud_size: 50000
+  noise_params: [0.005, 0.010, 0.015, 0.020]  # 多噪声水平
+  augmentation:
+    rotation: true
+    scaling: true
+    jittering: true
+
+# 模型配置
+model: configs/model/vm_enhanced_stage1.yaml
+
+# 训练参数
+epochs: 100
+learning_rate: 0.001
+learning_rate_decay: 0.95
+learning_rate_decay_step: 10
+weight_decay: 1e-5
+
+# 优化器
+optimizer: Adam
+
+# 检查点
+save_dir: experiments/enhanced_stage1
+save_interval: 5
+save_best: true
+
+# 日志
+log_interval: 10

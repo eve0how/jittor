@@ -1,0 +1,24 @@
+# 推理配置（使用阶段二模型）
+mode: predict
+
+# 数据配置
+data:
+  predict:
+    datapath:
+      root: dataset_test_noisy
+    batch_size: 2
+    num_workers: 4
+
+# 模型配置
+model: configs/model/vm_enhanced_stage2.yaml
+
+# 推理参数
+load_ckpt: experiments/enhanced_stage2/best.pt  # 修改为你的最佳权重路径
+
+# 输出配置
+output_dir: results/dataset_test_noisy
+
+# 推理选项
+use_ensemble: false  # 可选：集成多个模型
+ensemble_checkpoints: []
+patch_size: 5000  # 如果点云太大可以分patch

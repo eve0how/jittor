@@ -1,0 +1,66 @@
+# 阶段二训练任务配置（从阶段一微调）
+mode: train
+
+# 数据配置
+data:
+  train:
+    datapath:
+      root: dataset_clean
+      synset_dict:
+        02691156: [64, 1]
+        02773838: [32, 1]
+        02828884: [16, 1]
+        02933112: [8, 1]
+        02958343: [8, 1]
+        03001627: [128, 1]
+        03636649: [8, 1]
+        03691459: [8, 1]
+        04256520: [8, 1]
+        04379243: [8, 1]
+    shuffle: true
+    batch_size: 6  # 略小以容纳更大模型
+    num_workers: 4
+  
+  validate:
+    datapath:
+      root: dataset_clean
+      synset_dict:
+        02691156: [8, 1]
+        03001627: [16, 1]
+    shuffle: false
+    batch_size: 4
+    num_workers: 2
+
+# 数据处理
+transform:
+  point_cloud_size: 50000
+  noise_params: [0.005, 0.010, 0.015, 0.020]
+  augmentation:
+    rotation: true
+    scaling: true
+    jittering: true
+    local_dropout: true  # 新增：本地丢弃
+    curvature_sampling: true  # 新增：曲率感知采样
+
+# 模型配置
+model: configs/model/vm_enhanced_stage2.yaml
+
+# 训练参数
+epochs: 150  # 更多轮次
+learning_rate: 0.0005  # 降低学习率
+learning_rate_decay: 0.95
+learning_rate_decay_step: 10
+weight_decay: 1e-5
+warmup_steps: 1000  # 预热步数
+
+# 优化器
+optimizer: Adam
+
+# 检查点
+load_ckpt: experiments/enhanced_stage1/best.pt  # 加载阶段一权重
+save_dir: experiments/enhanced_stage2
+save_interval: 5
+save_best: true
+
+# 日志
+log_interval: 10
