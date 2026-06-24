@@ -1,0 +1,19 @@
+# 改进版 Stage1 模型配置 - 75分快速版本
+# 改动点：使用VelocityModuleStage1，启用曲率加权，增加特征维度
+
+__target__: VelocityModuleStage1
+
+# 几何参数
+frame_knn: 24              # KNN邻域大小 (比baseline 16增加)
+num_train_points: 1000     # 每个patch的训练点数，匹配当前 patch_size=1000
+
+# 特征提取参数 (改进)
+feat_embedding_dim: 256    # 特征维度 (baseline通常128，这里加强)
+decoder_hidden_dim: 128    # 解码器隐层
+
+# 噪声参数
+dsm_sigma: 0.01            # 噪声方差
+
+# 改进参数
+use_curvature_weighting: true  # 启用曲率加权损失 (+2-3分)
+num_inference_steps: 4         # 推理迭代步数 (多步精化)

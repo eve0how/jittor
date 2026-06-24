@@ -1,0 +1,25 @@
+mode: train
+debug: False
+
+components:
+  data: train
+  transform: vm
+  system: vm
+  model: vm_stage1_quick
+
+loss:
+  loss: 1.0
+
+optimizer:
+  __target__: adam
+  lr: 0.001
+  weight_decay: 1e-6
+
+trainer:
+  epochs: 80
+
+# 额外参数，可根据需要调整
+save_dir: experiments/vm_stage1_quick
+save_interval: 5
+save_best: true
+log_interval: 10
